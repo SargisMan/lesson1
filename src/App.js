@@ -12,9 +12,13 @@ import './App.css';
 // import A from './jsTests.js/A';
 // import B from './jsTests.js/B';
 // import D from './jsTests.js/D';
-import Counter from './jsTests.js/Counter';
-// import ToDo from './Components/ToDo/toDo';
-import A from './jsTests.js/A'
+// import Counter from './jsTests.js/Counter';
+import ToDo from './Components/ToDo/toDo';
+// import A from './jsTests.js/A';
+import image from '../src/assets/images/person.jpg';
+import styles from '../src/assets/image.module.css'
+
+console.log('image', image)
 
 
 
@@ -81,9 +85,15 @@ class App extends Component {
     //   text="test" 
     //   imgAlt="pic" />
     // ];
-    return <div className="App">
-      <A />
-      {/* <ToDo /> */}
+    return ( 
+    <div className="App">
+      
+        <img src={image} alt="Person" className={styles.img}></img>
+      
+       {/* <img src={'image /static/media/person.a1ab98cf.jpg'} alt="Person"></img> */}
+      
+      {/* <A /> */}
+      <ToDo />
       {/* <div className="card_wrapper">
       {login && elements}
       </div> */}
@@ -101,6 +111,7 @@ class App extends Component {
       </div> */}
       
     </div>
+    )
   }
 }
 

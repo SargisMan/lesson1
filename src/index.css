@@ -12,7 +12,7 @@ code {
     monospace;
 }
 
-.task{
+/* .task{
   width: 150px;
   padding: 25px;
   border: 1px solid black;
@@ -24,7 +24,7 @@ code {
   justify-content: space-between;
   width: 70%;
   margin: 100px auto;
-}
+} */
 
 .card.active{
 background-color: rgb(80, 255, 109);
