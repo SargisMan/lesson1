@@ -1,0 +1,28 @@
+.task{
+    width: 80%;
+    background-color: aqua;
+    padding: 50px;
+    color: rgb(150, 6, 13);
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.first{
+background-color: green;
+}
+
+.second{
+background-color:yellow;
+}
+
+.third{
+    transform: scale(1.2);
+}
+
+.radius{
+     border-radius: 8px;
+}
+
+.border{
+    border: 3px solid rgb(17, 9, 83);
+}
