@@ -1,26 +1,30 @@
 import React from 'react';
-import styles from './task.module.css';
+// import styles from './task.module.css';
+import {Card, Button} from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
 
 
-const Task = ({task, active, active2})=>{
-// console.log('styles', styles)
-const cls=[styles.task];
-if(active){
-    cls.push(styles.first);
-    cls.push(styles.third);
-    cls.push(styles.border)
-}
-if(active2)
-    cls.push(styles.second);
-    cls.push(styles.radius)
+
+const Task = ({task, handleDeleteOneTask})=>{
+
     return(
-        <div className={cls.join(' ')}>
-        {/* <div className={`${styles.task} ${active ? styles.first : ''}`}> */}
-        {/* <div className={active?`${styles.task} ${styles.first}`: styles.task}> */}
-            <p>
-            {task}
-            </p>
-        </div>
+        <Card style={{ width: '18rem' }}>
+ 
+  <Card.Body>
+    <Card.Title>Title: {task.text.slice(0, 10)}</Card.Title>
+    <Card.Text>Description: {task.text} </Card.Text>
+    <Button 
+    variant="danger"
+    onClick={()=>handleDeleteOneTask(task._id)}
+    >
+      <FontAwesomeIcon icon={faTrash} />
+    </Button>
+    <Button variant="warning" className="ml-3">
+      <FontAwesomeIcon icon={faEdit} />
+    </Button>
+  </Card.Body>
+</Card>
     )
 }
 

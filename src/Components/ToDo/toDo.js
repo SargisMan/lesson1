@@ -7,32 +7,71 @@ import {Container, Row, Col} from 'react-bootstrap'
 
 class ToDo extends React.Component {
     state={
-        tasks:['Task1','Task2','Task3'],
-    }
+        tasks:[
+        {
+            _id: idGenerator(),
+            text: `AngularJS     — JavaScript-фреймворк с открытым исходным кодом.
+                 Предназначен для разработки одностраничных приложений. 
+                Его цель — расширение браузерных приложений на основе MVC-шаблона,
+                 а также упрощение тестирования и разработки
+                 `
+        },
+         {
+            _id: idGenerator(),
+            text: `React Js       — JavaScript-библиотека с открытым исходным кодом для разработки пользовательских интерфейсов. 
+                React разрабатывается и поддерживается Facebook, Instagram и сообществом отдельных разработчиков и корпораций.
+                 React может использоваться для разработки одностраничных и мобильных приложений
+                 `
+        },
+         {
+            _id: idGenerator(),
+            text: `Vue.js      — JavaScript-фреймворк с открытым исходным кодом для создания пользовательских интерфейсов.
+                 Легко интегрируется в проекты с использованием других JavaScript-библиотек. 
+                Может функционировать как веб-фреймворк для разработки одностраничных приложений в реактивном стиле
+                `
+        },
+    ],
+}
 handleSubmit=(value)=>{
-// console.log('velue', value);
 if(!value) return;
 const tasks=[...this.state.tasks];
-tasks.push(value);
+tasks.push({
+    _id: idGenerator(),
+    text: value
+});
 this.setState({
-    // tasks: tasks
+    tasks
+});
+}
+
+handleDeleteOneTask=(id)=>{
+    // console.log('id',id)
+let tasks=[...this.state.tasks];
+tasks=tasks.filter(item=>item._id !==id)
+
+// const idx=tasks.findIndex(item=>item._id===id);
+// tasks.splice(idx,1);
+
+this.setState({
     tasks
 });
 }
 
 render(){
     const {tasks}=this.state;
-    const Tasks=this.state.tasks.map((task,index)=>{
+    const Tasks=this.state.tasks.map(task=>{
         return(
             <Col 
-            key={idGenerator()}
+            key={task._id}
             className="d-flex justify-content-center mt-3"
             xs={12}
             md={6}
             xl={4}
             >
                 <Task 
-                task={task} />
+                task={task} 
+                handleDeleteOneTask={this.handleDeleteOneTask}
+                />
             </Col>
             // <Task 
             // task={task} 
