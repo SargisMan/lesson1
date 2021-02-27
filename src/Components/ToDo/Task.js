@@ -12,6 +12,7 @@ const Task = ({task, handleDeleteOneTask})=>{
         <Card style={{ width: '18rem' }}>
  
   <Card.Body>
+    <Card.Title>Title: {task.title}</Card.Title>
     <Card.Title>Title: {task.text.slice(0, 10)}</Card.Title>
     <Card.Text>Description: {task.text} </Card.Text>
     <Button 

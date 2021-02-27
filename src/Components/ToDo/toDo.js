@@ -10,6 +10,7 @@ class ToDo extends React.Component {
         tasks:[
         {
             _id: idGenerator(),
+            title: "Task1",
             text: `AngularJS     — JavaScript-фреймворк с открытым исходным кодом.
                  Предназначен для разработки одностраничных приложений. 
                 Его цель — расширение браузерных приложений на основе MVC-шаблона,
@@ -18,6 +19,7 @@ class ToDo extends React.Component {
         },
          {
             _id: idGenerator(),
+            title: "Task2",
             text: `React Js       — JavaScript-библиотека с открытым исходным кодом для разработки пользовательских интерфейсов. 
                 React разрабатывается и поддерживается Facebook, Instagram и сообществом отдельных разработчиков и корпораций.
                  React может использоваться для разработки одностраничных и мобильных приложений
@@ -25,6 +27,7 @@ class ToDo extends React.Component {
         },
          {
             _id: idGenerator(),
+            title: "Task3",
             text: `Vue.js      — JavaScript-фреймворк с открытым исходным кодом для создания пользовательских интерфейсов.
                  Легко интегрируется в проекты с использованием других JavaScript-библиотек. 
                 Может функционировать как веб-фреймворк для разработки одностраничных приложений в реактивном стиле
@@ -37,7 +40,7 @@ if(!value) return;
 const tasks=[...this.state.tasks];
 tasks.push({
     _id: idGenerator(),
-    text: value
+    text: value,
 });
 this.setState({
     tasks
