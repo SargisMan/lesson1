@@ -1,6 +1,6 @@
 import React from 'react';
 // import styles from './task.module.css';
-import {Card, Button} from 'react-bootstrap';
+import {Card, Button, Container, Row, Col, Form} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
 
@@ -12,7 +12,19 @@ const Task = ({task, handleDeleteOneTask})=>{
         <Card style={{ width: '18rem' }}>
  
   <Card.Body>
-    <Card.Title>Title: {task.title}</Card.Title>
+    <Container>
+      <Row>
+        <Col>
+        <Card.Title>Title: {task.title}</Card.Title>
+        </Col>
+         <Col>
+        <Form.Group controlId="formBasicCheckbox">
+        <Form.Check type="checkbox" label="Check me out" />
+        </Form.Group>
+        </Col>
+      </Row>
+    </Container>
+    
     <Card.Title>Title: {task.text.slice(0, 10)}</Card.Title>
     <Card.Text>Description: {task.text} </Card.Text>
     <Button 
