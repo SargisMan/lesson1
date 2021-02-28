@@ -49,42 +49,35 @@ this.setState({
 });
 }
 
-handleDeleteOneTask=(id)=>{
-    // console.log('id',id)
-let tasks=[...this.state.tasks];
-tasks=tasks.filter(item=>item._id !==id)
+   handleDeleteOneTask = (id) => {
+        let tasks = [...this.state.tasks];
+        tasks = tasks.filter(item => item._id !== id);
+        this.setState({
+            tasks
+        });
+    }
+    toggleSetRemoveTaskIds = (_id) => {
+        let removeTasks = new Set(this.state.removeTasks);
+        if (removeTasks.has(_id)) {
+            removeTasks.delete(_id);
+        } else {
+            removeTasks.add(_id);
+        }
 
-// const idx=tasks.findIndex(item=>item._id===id);
-// tasks.splice(idx,1);
+        this.setState({
+            removeTasks
+        });
+    }
+    removeSelectedTasks = () => {
+        let tasks = [...this.state.tasks];
+        const { removeTasks } = this.state;
+        tasks = tasks.filter(item => !removeTasks.has(item._id));
+        this.setState({
+            tasks,
+            removeTasks: new Set()
+        });
 
-this.setState({
-    tasks
-});
-}
-
-toggleSetRemoveTaskIds=(_id)=>{
-    // const removeTasks=new Set(removeTasks)
-    let removeTasks=new Set(this.state.removeTasks);
-// let removeTasks=[...this.state.removeTasks];
-if (removeTasks.has(_id)){
-    removeTasks=removeTasks.delete(_id);
-} else{
-    removeTasks.add(_id);
-}
-this.setState({
-    removeTasks
-})
-}
-
-removeSelectedTasks=()=>{
-    let tasks=[...this.state.tasks];
-    const removeTasks=[...this.state.removeTasks];
-    tasks=tasks.filter(item=>!removeTasks.includes(item._id));
-    this.setState({
-        tasks,
-        removeTasks: new Set()
-    })
-}
+    }
 
 render(){
     const {tasks, removeTasks}=this.state;
@@ -105,12 +98,6 @@ render(){
                 checked={removeTasks.has(task._id)}
                 />
             </Col>
-            // <Task 
-            // task={task} 
-            // key={idGenerator()}
-            // active={index===1}
-            // active2={index===2}
-            // />
         )
     })
     return(
@@ -142,18 +129,6 @@ render(){
             </Container>
         </div>
   
-        // <div>
-        //     <h1 className={styles.txt}>To do component</h1>
-        //     <AddTask handleSubmit={this.handleSubmit} />
-        //     <div className={styles.task_wrapper}>
-        //          {!tasks.length && <div>Task is empty</div>}
-        //         {Tasks}
-        //     </div>
-        //     {/* <div className={styles.task}></div> */}
-        //     <div>
-        //         <Button variant="danger">DELETE</Button>
-        //     </div>
-        // </div>
     )
 }
 }

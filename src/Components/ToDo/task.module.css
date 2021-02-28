@@ -31,5 +31,7 @@ background-color:yellow;
     background-color: rgba(169,146,192,.8);
     color: white;
     width: 18rem;
+    opacity: 0.9;
+    border: solid black;
 
 }
