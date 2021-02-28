@@ -33,7 +33,9 @@ class ToDo extends React.Component {
                 `
         },
     ],
-    removeTasks:[]
+    // removeTasks:[]
+    removeTasks:new Set(),
+
 }
 handleSubmit=(value)=>{
 if(!value) return;
@@ -49,6 +51,7 @@ this.setState({
 
 handleDeleteOneTask=(id)=>{
     // console.log('id',id)
+    const removeTasks=new Set(removeTasks)
 let tasks=[...this.state.tasks];
 tasks=tasks.filter(item=>item._id !==id)
 
