@@ -26,3 +26,10 @@ background-color:yellow;
 .border{
     border: 3px solid rgb(17, 9, 83);
 }
+
+.card{
+    background-color: rgba(169,146,192,.8);
+    color: white;
+    width: 18rem;
+
+}

@@ -42,6 +42,12 @@ background-color: rgb(80, 255, 109);
   width: 150px;
 }
 
+.cardBody{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 /* *{
   box-sizing: border-box;
 } */
