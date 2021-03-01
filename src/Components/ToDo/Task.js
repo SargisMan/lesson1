@@ -17,7 +17,11 @@ const Task = ({
         <Card className={`${styles.card} ${checked && styles.checked}`}>
  
   <Card.Body className="cardBody">
-    <input type="checkbox" onClick={()=>toggleSetRemoveTaskIds(task._id)}/>
+    <input 
+    type="checkbox" 
+    onChange={()=>toggleSetRemoveTaskIds(task._id)}
+    checked={checked}
+    />
     <Card.Title>Title: {task.text.slice(0, 10)}</Card.Title>
     <Card.Text>Description: {task.text} </Card.Text>
 
@@ -26,6 +30,7 @@ const Task = ({
       disabled={disabled}
     variant="danger"
     onClick={()=>handleDeleteOneTask(task._id)}
+    checked={checked}
     >
       <FontAwesomeIcon icon={faTrash} />
     </Button>
@@ -43,54 +48,5 @@ const Task = ({
     )
 }
 
-// class Task extends React.PureComponent{
 
-//     // shouldComponentUpdate(nextProps,nextState){
-//     //   console.log('prevProps',this.props);
-//     //   console.log('nextProps', nextProps);
-//     //   return true
-//     // }
-
-//   render(){
-//     const {
-//   task, 
-//   handleDeleteOneTask,
-//   toggleSetRemoveTaskIds,
-//   disabled,
-//   checked
-//     }=this.props;
-
-//     console.log('Render')
-
-//     return <Card className={styles.card}>
- 
-//   <Card.Body className="cardBody">
-//     <input type="checkbox" onClick={()=>toggleSetRemoveTaskIds(task._id)}/>
-//     <Card.Title>Title: {task.text.slice(0, 10)}</Card.Title>
-//     <Card.Text>Description: {task.text} </Card.Text>
-
-//     <div>
-//       <Button 
-//       disabled={disabled}
-//     variant="danger"
-//     onClick={()=>handleDeleteOneTask(task._id)}
-//     >
-//       <FontAwesomeIcon icon={faTrash} />
-//     </Button>
-//     <Button 
-//     variant="warning" 
-//     className="ml-3"
-//     disabled={disabled}
-//     >
-//       <FontAwesomeIcon icon={faEdit} />
-//     </Button>
-//     </div>
-    
-//   </Card.Body>
-// </Card>
-
-//   }
-// }
-
-
-export default memo (Task);
+export default memo(Task);
