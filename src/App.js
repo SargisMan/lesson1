@@ -6,6 +6,7 @@ import ToDo from './Components/ToDo/toDo';
 // import styles from '../src/assets/image.module.css'
 // import Grid from './test.js/Grid/Grid'
 // import Lifecycle from './Components/Demo/Lifecycle'
+import Demo from '../src/Components/Demo/Demo'
 
 
 
@@ -18,7 +19,9 @@ class App extends Component {
 
     return ( 
     <div className="App">
+      <Demo />
       <ToDo test="true" />
+      {/* <Lifecycle /> */}
       {/* {this.state.isLifeCycle && <Lifecycle />}   */}
     </div>
     )

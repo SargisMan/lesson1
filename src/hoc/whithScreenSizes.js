@@ -1,0 +1,34 @@
+import React from 'react';
+
+const withScreenSizes=(Component)=>{
+    return class extends React.Component{
+        state={
+            width:window.innerWidth,
+            height:window.innerHeight
+        }
+
+        handleSetSizes=()=>{
+            this.setState({
+                width:window.innerWidth,
+                height:window.innerHeight
+            });
+        }
+
+        componentDidMount(){
+            window.addEventListener('resize',this.handleSetSizes);
+        }
+
+        componentWillReceiveProps(){
+            window.removeEventListener('resize',this.handleSetSizes)
+        }
+
+
+        render(){
+            return <Component 
+            width={this.state.width} 
+            height={this.state.height}/>
+        }
+    }
+}
+
+export default withScreenSizes;

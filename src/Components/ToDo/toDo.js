@@ -5,6 +5,8 @@ import AddTask from './AddTask';
 import idGenerator from "../../helpers/idGenerator";
 import {Container, Row, Col, Button} from 'react-bootstrap'
 // import { Button } from 'bootstrap';
+import withTest from '../../hoc/whithTest';
+import whithScreenSizes from '../../hoc/whithScreenSizes'
 
 
 class ToDo extends React.Component {
@@ -98,6 +100,7 @@ this.setState({
     }
 
 render(){
+    // console.log('props ToDo',this.props)
     const {tasks, removeTasks, isAllChecked}=this.state;
     const Tasks=this.state.tasks.map(task=>{
         return(
@@ -110,6 +113,7 @@ render(){
             >
                 <Task 
                 task={task} 
+                // task={{_id:5,text:15}}
                 handleDeleteOneTask={this.handleDeleteOneTask}
                 toggleSetRemoveTaskIds={this.toggleSetRemoveTaskIds}
                 disabled={!!removeTasks.size}
@@ -118,6 +122,7 @@ render(){
             </Col>
         )
     })
+    console.log('test',this.props.test)
     return(
 <Fragment>
         <div>
@@ -163,6 +168,6 @@ render(){
 }
 
 
-export default ToDo;
+export default whithScreenSizes(ToDo);
 
 

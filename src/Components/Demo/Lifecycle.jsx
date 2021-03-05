@@ -1,4 +1,5 @@
 import React from 'react';
+import whithTest from '../../hoc/whithTest'
 
 class Lifecycle extends React.Component{
     constructor(props){
@@ -28,7 +29,7 @@ shouldComponentUpdate(nextProps,nextState){
 }
 
     render(){
-        console.log('mounting');
+        console.log('test',this.props.test);
         return(
             <div>
                 <h1>
@@ -61,4 +62,4 @@ shouldComponentUpdate(nextProps,nextState){
     }
 };
 
-export default Lifecycle;
+export default whithTest(Lifecycle);

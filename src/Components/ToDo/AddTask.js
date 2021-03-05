@@ -1,12 +1,18 @@
 // import { Button } from 'bootstrap';
 import React from 'react';
 // import styles from '../ToDo/addTask.module.css'
-import {Form, Button} from 'react-bootstrap'
+import {Form, Button} from 'react-bootstrap';
+import PropTypes from 'prop-types'
 
 class AddTask extends React.Component{
-    state={
+    constructor(props){
+        super(props);
+        this.inputRef=React.createRef()
+        this.state={
         inputValue:''
     }
+    }
+    
     handleChange=(event)=>{
         const {value} = event.target;
         this.setState({
@@ -20,7 +26,7 @@ class AddTask extends React.Component{
 
     handleS=({key,type})=>{
         if(type==='keypress' && key!=='Enter') return;
-
+        // console.log('input', this.inputRef.current.value)
         const {inputValue}=this.state;
         const {handleSubmit}=this.props;
 
@@ -28,6 +34,10 @@ class AddTask extends React.Component{
            this.setState({
                inputValue:''
            })
+       }
+
+       componentDidMount(){
+           this.inputRef.current.focus();
        }
 
    render(){
@@ -46,6 +56,7 @@ class AddTask extends React.Component{
                 value={inputValue} 
                 style={{width: "70%"}}
                 disabled={disabled}
+                ref={this.inputRef}
                 />
                 <Button 
                 variant="primary"
@@ -55,5 +66,10 @@ class AddTask extends React.Component{
                 </div>
         )
     }
+}
+
+AddTask.propTypes={
+    handleSubmit:PropTypes.func.isRequired,
+    disabled:PropTypes.bool.isRequired
 }
 export default AddTask;
