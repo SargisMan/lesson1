@@ -12,10 +12,14 @@ const Task = ({
   handleDeleteOneTask,
   toggleSetRemoveTaskIds,
   disabled,
-  checked})=>{
+  checked,
+  handleSetEditTask
+})=>{
   console.log('Render');
     return(
-        <Card className={`${styles.card} ${checked && styles.checked}`} onClick={()=>console.log('Click')}>
+        <Card className={`${styles.card} ${checked && styles.checked}`} 
+        // onClick={()=>console.log('Click')}
+        >
  
   <Card.Body className="cardBody">
     <input 
@@ -23,8 +27,8 @@ const Task = ({
     onChange={()=>toggleSetRemoveTaskIds(task._id)}
     checked={checked}
     />
-    <Card.Title>Title: {task.text.slice(0, 10)}</Card.Title>
-    <Card.Text>Description: {task.text} </Card.Text>
+    <Card.Title>Title: {task.title}</Card.Title>
+    <Card.Text>Description: {task.description} </Card.Text>
 
     <div>
       <Button 
@@ -39,6 +43,7 @@ const Task = ({
     variant="warning" 
     className="ml-3"
     disabled={disabled}
+    onClick={()=> handleSetEditTask(task)}
     >
       <FontAwesomeIcon icon={faEdit} />
     </Button>
@@ -51,12 +56,14 @@ const Task = ({
 Task.propTypes={
   task: PropTypes.shape({
     _id:PropTypes.string.isRequired,
-    text:PropTypes.string.isRequired
+    title:PropTypes.string.isRequired,
+    description:PropTypes.string.isRequired
   }),
   disabled: PropTypes.bool.isRequired,
   handleDeleteOneTask: PropTypes.func.isRequired,
   toggleSetRemoveTaskIds: PropTypes.func.isRequired,
-  checked:PropTypes.bool.isRequired
+  checked:PropTypes.bool.isRequired,
+  handleSetEditTask:PropTypes.func.isRequired
 }
 
 export default memo(Task);

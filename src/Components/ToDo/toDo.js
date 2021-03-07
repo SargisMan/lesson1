@@ -1,12 +1,13 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import Task from './Task';
 import AddTask from './AddTask';
 // import styles from './toDo.module.css';
+import Confirm from '../Confirm/Confirm';
+import EditTestModal from '../../Components/EditTaskModal/EditTaskModal'
 import idGenerator from "../../helpers/idGenerator";
 import {Container, Row, Col, Button} from 'react-bootstrap'
+import EditTaskModal from '../../Components/EditTaskModal/EditTaskModal';
 // import { Button } from 'bootstrap';
-import withTest from '../../hoc/whithTest';
-import whithScreenSizes from '../../hoc/whithScreenSizes'
 
 
 class ToDo extends React.Component {
@@ -14,7 +15,8 @@ class ToDo extends React.Component {
         tasks:[
         {
             _id: idGenerator(),
-            text: `AngularJS     — JavaScript-фреймворк с открытым исходным кодом.
+            title: "AngularJS",
+            description:`JavaScript-фреймворк с открытым исходным кодом.
                  Предназначен для разработки одностраничных приложений. 
                 Его цель — расширение браузерных приложений на основе MVC-шаблона,
                  а также упрощение тестирования и разработки
@@ -22,14 +24,16 @@ class ToDo extends React.Component {
         },
          {
             _id: idGenerator(),
-            text: `React Js       — JavaScript-библиотека с открытым исходным кодом для разработки пользовательских интерфейсов. 
+            title: "React Js",
+            description:`JavaScript-библиотека с открытым исходным кодом для разработки пользовательских интерфейсов. 
                 React разрабатывается и поддерживается Facebook, Instagram и сообществом отдельных разработчиков и корпораций.
                  React может использоваться для разработки одностраничных и мобильных приложений
                  `
         },
          {
             _id: idGenerator(),
-            text: `Vue.js      — JavaScript-фреймворк с открытым исходным кодом для создания пользовательских интерфейсов.
+            title: "Vue.js",
+            description:`JavaScript-фреймворк с открытым исходным кодом для создания пользовательских интерфейсов.
                  Легко интегрируется в проекты с использованием других JavaScript-библиотек. 
                 Может функционировать как веб-фреймворк для разработки одностраничных приложений в реактивном стиле
                 `
@@ -37,15 +41,18 @@ class ToDo extends React.Component {
     ],
     // removeTasks:[]
     removeTasks: new Set(),
-    isAllChecked: false
+    isAllChecked: false,
+    isConfirmModal: false,
+    editableTask:null
 
 }
-handleSubmit=(value)=>{
-if(!value) return;
+handleSubmit=(formData)=>{
+if(!formData.title || !formData.description) return;
 const tasks=[...this.state.tasks];
 tasks.push({
     _id: idGenerator(),
-    text: value
+    title:formData.title,
+    description:formData.description
 });
 this.setState({
     tasks
@@ -99,9 +106,41 @@ this.setState({
         })
     }
 
+    handleToggleOpenModal=()=>{
+        this.setState({
+            isConfirmModal: !this.state.isConfirmModal
+        });
+    }
+
+    handleSetEditTask=(task)=>{
+        this.setState({
+            editableTask: task
+        });
+    }
+
+    setEditableTaskNull=()=>{
+         this.setState({
+            editableTask: null
+        });
+    }
+
+    handleEditTask=(editTask)=>{
+        const tasks=[...this.state.tasks];
+        const idx=tasks.findIndex(task=>task._id===editTask._id);
+        tasks[idx]=editTask;
+        this.setState({
+            tasks
+        });
+    }
+
 render(){
     // console.log('props ToDo',this.props)
-    const {tasks, removeTasks, isAllChecked}=this.state;
+    const {
+        tasks, 
+        removeTasks, 
+        isAllChecked, 
+        isConfirmModal, 
+        editableTask}=this.state;
     const Tasks=this.state.tasks.map(task=>{
         return(
             <Col 
@@ -118,13 +157,13 @@ render(){
                 toggleSetRemoveTaskIds={this.toggleSetRemoveTaskIds}
                 disabled={!!removeTasks.size}
                 checked={removeTasks.has(task._id)}
+                handleSetEditTask={this.handleSetEditTask}
                 />
             </Col>
         )
     })
     console.log('test',this.props.test)
     return(
-<Fragment>
         <div>
             <Container>
                 <Row className="mt-4">
@@ -143,7 +182,8 @@ render(){
                 <Row className="mt-5">
                     <Col>
                     <Button variant="danger"
-                    onClick={this.removeSelectedTasks}
+                    // onClick={this.removeSelectedTasks}
+                    onClick={this.handleToggleOpenModal}
                     disabled={!!!removeTasks.size}
                     >Remove Selected</Button>
 
@@ -158,16 +198,25 @@ render(){
                 </Row>
 
             </Container>
+            {isConfirmModal && <Confirm 
+            onHide={this.handleToggleOpenModal}
+            onSubmit={this.removeSelectedTasks}
+            // count={removeTasks.size}
+            massage={`Do you want to delete ${removeTasks.size} Task ?`}
+            />}
+            {
+                editableTask && <EditTaskModal 
+                editableTask={editableTask}
+                onHide={this.setEditableTaskNull}
+                onSubmit={this.handleEditTask}
+                />
+            }
         </div>
-        <div>
-            <h1>Fragment Effect</h1>
-        </div>
-  </Fragment>
     )
 }
 }
 
 
-export default whithScreenSizes(ToDo);
+export default ToDo;
 
 
