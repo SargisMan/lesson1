@@ -1,9 +1,9 @@
 import React from 'react';
 import Task from './Task';
-import AddTask from './AddTask';
 // import styles from './toDo.module.css';
 import Confirm from '../Confirm/Confirm';
-import EditTestModal from '../../Components/EditTaskModal/EditTaskModal'
+import EditTestModal from '../../Components/EditTaskModal/EditTaskModal';
+import AddTaskModal from '../AddTaskModal/AddTaskModal'
 import idGenerator from "../../helpers/idGenerator";
 import {Container, Row, Col, Button} from 'react-bootstrap'
 import EditTaskModal from '../../Components/EditTaskModal/EditTaskModal';
@@ -43,7 +43,8 @@ class ToDo extends React.Component {
     removeTasks: new Set(),
     isAllChecked: false,
     isConfirmModal: false,
-    editableTask:null
+    editableTask:null,
+    isOpenAddTaskModal: false
 
 }
 handleSubmit=(formData)=>{
@@ -133,6 +134,12 @@ this.setState({
         });
     }
 
+    toggleOpenAddTaskModal=()=>{
+        this.setState({
+            isOpenAddTaskModal: !this.state.isOpenAddTaskModal
+        });
+    }
+
 render(){
     // console.log('props ToDo',this.props)
     const {
@@ -140,7 +147,10 @@ render(){
         removeTasks, 
         isAllChecked, 
         isConfirmModal, 
-        editableTask}=this.state;
+        editableTask,
+        isOpenAddTaskModal
+        }=this.state;
+       
     const Tasks=this.state.tasks.map(task=>{
         return(
             <Col 
@@ -168,11 +178,10 @@ render(){
             <Container>
                 <Row className="mt-4">
                     <Col>
-                        <h1>To do component</h1>
-                        <AddTask 
-                            handleSubmit={this.handleSubmit} 
-                            disabled={!!removeTasks.size}
-                        />
+                        <Button 
+                        variant="primary"
+                        onClick={this.toggleOpenAddTaskModal}
+                        >Add Task</Button>
                     </Col>                    
                 </Row>
                 <Row className="mt-4">
@@ -209,6 +218,12 @@ render(){
                 editableTask={editableTask}
                 onHide={this.setEditableTaskNull}
                 onSubmit={this.handleEditTask}
+                />
+            }
+            {
+                isOpenAddTaskModal && <AddTaskModal 
+                onHide={this.toggleOpenAddTaskModal}
+                handleSubmit={this.handleSubmit}
                 />
             }
         </div>

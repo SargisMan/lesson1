@@ -28,6 +28,7 @@ class EditTaskModal extends React.Component{
   }
   
     render(){
+      // console.log('EditTaskRender')
         const {onHide}=this.props;
         const {title, description}=this.state;
         return(
@@ -75,6 +76,19 @@ class EditTaskModal extends React.Component{
     </Modal>
     );
     };
+
+    componentDidMount(){
+      console.log('ComponentDidMount')
+    }
+
+    componentDidUpdate(){
+      console.log('ComponentDidUpdate')
+    }
+
+
+    componentWillUnmount(){
+      console.log('ComponentWillUnmpount')
+    }
 }
 
 export default EditTaskModal;

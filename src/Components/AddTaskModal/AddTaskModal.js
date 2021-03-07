@@ -1,7 +1,7 @@
 // import { Button } from 'bootstrap';
 import React from 'react';
 // import styles from '../ToDo/addTask.module.css'
-import {Form, Button} from 'react-bootstrap';
+import {Form, Button, Modal} from 'react-bootstrap';
 import PropTypes from 'prop-types'
 
 class AddTask extends React.Component{
@@ -32,20 +32,19 @@ class AddTask extends React.Component{
     };
 
     handleS=({key,type})=>{
-        if(type==='keypress' && key!=='Enter') return;
-        // console.log('input', this.inputRef.current.value)
         const {title,description}=this.state;
-        const {handleSubmit}=this.props;
+        const {handleSubmit, onHide}=this.props;
+        if(
+            (type==='keypress' && key!=='Enter') || 
+            (!title || !description)
+            ) return;
+        // console.log('input', this.inputRef.current.value)
         const formData={
             title,
             description
         };
-
            handleSubmit(formData);
-           this.setState({
-               title:'',
-               description:''
-           })
+           onHide(); //Component-ը փակվում է
        }
 
        componentDidMount(){
@@ -55,12 +54,26 @@ class AddTask extends React.Component{
    render(){
     //    console.log('render', this.state.inputValue)
        const {title, description}=this.state;
-       const {disabled}=this.props;
+       const {onHide}=this.props;
+    //    const {disabled}=this.props;
        
        
     return(
-        <div className="d-flex flex-column align-items-center mt-4s">
-                <Form.Control 
+              <Modal
+    //   {...props}
+    show={true}
+    onHide={onHide}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Add Task Modal
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="d-flex flex-column align-items-center">
+          <Form.Control 
                 name="title"
                 type="text" 
                 placeholder="Title" 
@@ -68,7 +81,7 @@ class AddTask extends React.Component{
                 onKeyPress={this.handleS}
                 value={title} 
                 style={{width: "70%"}}
-                disabled={disabled}
+                // disabled={disabled}
                 ref={this.inputRef}
                 />
                 <Form.Control 
@@ -81,20 +94,25 @@ class AddTask extends React.Component{
                  style={{width: "70%", resize:"none"}}
                  value={description}
                  />
-                <div>
-                <Button 
-                variant="primary"
-                onClick={this.handleS}
-                disabled={!(!!title && !!description)}
-                >Add</Button>
-                </div>
-                </div>
+      </Modal.Body>
+      <Modal.Footer>
+          
+        <Button onClick={onHide} variant="secondary">Close</Button>
+        <Button 
+        onClick={this.handleS} 
+        variant="primary"
+        disabled={!!!title || !!!description}
+        >Add</Button>
+      </Modal.Footer>
+    </Modal>  
+       
         )
     }
 }
 
 AddTask.propTypes={
     handleSubmit:PropTypes.func.isRequired,
-    disabled:PropTypes.bool.isRequired
+    onHide:PropTypes.func.isRequired
+    // disabled:PropTypes.bool.isRequired
 }
 export default AddTask;
